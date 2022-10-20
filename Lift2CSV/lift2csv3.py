@@ -31,6 +31,12 @@ for entry in root.findall(".//entry"):
     form = entry.find(".//lexical-unit/form")
     form_text = "".join(form.itertext())
     trait_value = entry.find(".//trait").get("value")
+    
+    try:
+        trait_sd = entry.find(".//sense/trait[@name='semantic-domain-ddp4']").get("value")
+    except:
+        if AttributeError:
+            trait_sd = ''
     pronunciation = entry.find(".//pronunciation")
     try:
         grammatical_info = entry.find(".//sense/grammatical-info").get("value")
@@ -96,6 +102,7 @@ for entry in root.findall(".//entry"):
         item['example_analysis1'] = example_translationA_text.strip()
         if analysis_lang2 == 1:
             item['example_anaysis2'] = example_translationB_text.strip()
+        item['Ssemantic-Domain'] = trait_sd.strip()
 
         dictionary.append(item)  # Append item into the array called dictionary.
 
